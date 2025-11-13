@@ -22,7 +22,6 @@ float A_im[NSAMPLES];
 float B_re[NSAMPLES];
 float B_im[NSAMPLES];
 
-// transformation nombre -> tension
 float offset = 0.0;
 float num2volt = 3.217/65536;
 
@@ -36,51 +35,8 @@ int ADC1_channel  = A0;
 int ADC2_channel  = A1;
 int resolution    = 16;
 int clk_speed_MHz = 40;
-int sample_time   = 0;  // measure fs is around 4MSPS
+int sample_time   = 0;  // measure fs is around 4.3MSPS (per ADC)
 int sample_num    = 0;
-
-
-void get_data() 
-{
-  char n;
-  while (Serial.available()<1) {};
-  n = Serial.read();
-  if (n==0) data_request = true;
-}
-
-void send_data() 
-{
-  if ((data_ready) && (data_request)) 
-  {
-      data_ready   = false;
-      data_request = false;
-      Serial.write(data, DATA_SIZE);
-  }
-}	
-
-void set_data() {
-  char n;
-  while (Serial.available()<1) {};
-  n = Serial.read();
-  if (n==0) {
-    while (Serial.available()<DATA_SIZE) {};
-    Serial.readBytes(data,DATA_SIZE);
-    memcpy(&fft_amp, data, DATA_SIZE);
-    data_ready = true; 
-  }
-}
-
-void read_serial() 
-{
-   char com;
-   if (Serial.available() > 0) 
-   {
-        com = Serial.read();
-        if (com==GET_DATA) get_data();
-        else if (com==SET_DATA) set_data();
-   }
-}	
-
 
 int inversion(uint16_t i) {
   uint8_t bi;
@@ -214,7 +170,6 @@ void loop()
     fft_amp[i] = sqrt(B_re[i] * B_re[i] + B_im[i] * B_im[i]) * 2.0 / NSAMPLES;
   }
 
-
   if (Serial.available()) 
   {
     char c = Serial.read();
@@ -224,9 +179,6 @@ void loop()
       Serial.flush();  // block until everything is sent
     }
   }
-
-  // read_serial();
-  // send_data();
 
   recaptureADCvalues(ADC2DMA); 
   recaptureADCvalues(ADC1DMA); 
@@ -238,7 +190,3 @@ void loop()
   delay(10);
   digitalWrite(LED_BLUE, HIGH);
 }
-
-
-
-
