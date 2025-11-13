@@ -22,7 +22,7 @@ float A_im[NSAMPLES];
 float B_re[NSAMPLES];
 float B_im[NSAMPLES];
 
-float offset = 0.0;
+float offset = 65536/2;
 float num2volt = 3.217/65536;
 
 uint16_t indice;
