@@ -14,9 +14,6 @@
 #define SET_DATA 11
 uint8_t data[DATA_SIZE]; // buffer used to send the floats of fft_amp over serial
 
-bool data_ready = true;
-bool data_request = false;
-
 float A_re[NSAMPLES];
 float A_im[NSAMPLES];
 float B_re[NSAMPLES];
