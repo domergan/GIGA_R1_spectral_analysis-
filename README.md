@@ -6,4 +6,5 @@
 - [x] magnitude plot
 - [ ] digital filtering
 - [ ] cfar
-- [ ] quadrature sampling 
+- [ ] quadrature sampling
+- [ ] use external SDRAM 
