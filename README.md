@@ -1,4 +1,4 @@
-### 2MHz spectrum analyser based on Arduino GIGA R1
+### 2MHz, 16k points FFT using the Arduino GIGA R1
 
 #### TODO
 - [x] adc sampling rate measurement
